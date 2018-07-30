@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  穴力 </title>
+  <title>  Mac OS下搭梯子-Ss |   穴力 </title>
 
  
   
@@ -68,56 +68,38 @@
             <section class="main">  
           
 
-          
+          <article class="post">
+  
+	<div class="post-header">
 
-
-<div class="profile sildeUpMin">
-
-		
-		<img class="avatar lazyload" src="/images/placeholder.png" data-src="/images/header.jpg">
-		<p class="author">pick苦瓜炒鸡蛋</p>
-		
-		<div class="social">
-   		      		
-		<a target="_blank" class="social-links" href="https://github.com/lanshiyinging/lanshiyinging.github.io.git">		
-			<i class="iconfont icon-Github"></i>
-		</a>	
-	    
-    	</div>		
-</div>
-
-      	  	
-
-  		
-    	<article class="article">		
-	   
-	<div class="article-header">
-	    
-	     <a class="article-title" href="/2018/07/30/Mac-OS下搭梯子-ss/">Mac OS下搭梯子-ss</a>  
-	       
-		 
-
-		<div class="article-meta">
-		
-		Jul 30, 2018
-
-		
-			<span class="iconfont icon-star"></span>		 
-			            
-			<a class="article-tag" href="/tags/tool/">tool</a>           
+	<p class="post-title">	
+		Mac OS下搭梯子-ss
+	</p>
 			
-		
-		</div>
 
-	</div>
-
+	<div class="meta-info">	
+	<span>
+		Jul 30, 2018
+	</span>
 
 	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1349
+		</span>
+	
+</div>
 
-    
-	<div class="article-excerpt">	
-		 
-			<ol>
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<ol>
 <li><p>买服务器</p>
 <ul>
 <li>注册：<a href="https://billing.virmach.com/clientarea.php" target="_blank" rel="noopener">https://billing.virmach.com/clientarea.php</a></li>
@@ -175,165 +157,124 @@
 <p>​</p>
 </li>
 </ol>
-
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/07/30/Mac-OS下搭梯子-ss/">Continue</a> 	</div>	
-    
-</article>     
-     	
-      	  	
-
-  		
-    	<article class="article">		
-	   
-	<div class="article-header">
-	    
-	     <a class="article-title" href="/2018/07/28/MacOS-Sierre-10-12-6-安装Caffe的坑/">MacOS Sierre 10.12.6 安装Caffe的坑</a>  
-	       
-		 
-
-		<div class="article-meta">
-		
-		Jul 28, 2018
-
-		
-			<span class="iconfont icon-star"></span>		 
-			            
-			<a class="article-tag" href="/tags/install/">install</a>           
-			
-		
-		</div>
-
-	</div>
-
+  	
+					
+	  </div>     
+	  
 
 	
+<div class="post-meta">
+      	
 
-    
-	<div class="article-excerpt">	
-		 
-			<ol>
-<li><p>编译caffe，出现一堆编译报错</p>
-<p>类似于unknown type name ‘constexpr’这样的</p>
-<p>在caffe/Makefile里面把下面语句替换进去就好了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CXXFLAGS += -pthread -fPIC $(COMMON_FLAGS) $(WARNINGS) -std=c++11</span><br><span class="line">NVCCFLAGS += -D_FORCE_INLINES -ccbin=$(CXX) -Xcompiler -fPIC $(COMMON_FLAGS) -std=c++11</span><br><span class="line">LINKFLAGS += -pthread -fPIC $(COMMON_FLAGS) $(WARNINGS) -std=c++11</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>make run test的时候 出现的</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dyld: Library not loaded: @rpath/libopenblas.dylib</span><br><span class="line">  Referenced from: /Users/username/Documents/caffe/.build_release/tools/caffe</span><br><span class="line">  Reason: image not found</span><br></pre></td></tr></table></figure>
-<p>解决方案如下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">install_name_tool -add_rpath '/anaconda2/lib'  /Users/username/Documents/caffe/.build_release/tools/caffe</span><br><span class="line"></span><br><span class="line">install_name_tool -add_rpath '/anaconda2/lib'  /Users/username/Documents/caffe/.build_release/test/test_all.testbin</span><br></pre></td></tr></table></figure>
-<p>其中第一个路径时ananconda的路径，第二个路径时你caffe的路径</p>
-</li>
-<li><p>make pycaffe时，报错</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ld: library not found for -lboost_python</span><br><span class="line">clang: error: linker command failed with exit code 1 (use -v to see invocation)</span><br><span class="line">make: *** [python/caffe/_caffe.so] Error 1</span><br></pre></td></tr></table></figure>
-<p>解决</p>
-<p>在caffE/Makefile中，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 用vi命令：:?boost_python</span><br><span class="line">2. 将PYTHON_LIBRARIES ?= boost_python python2.7</span><br><span class="line">      替换为 PYTHON_LIBRARIES ?= boost_python27 python2.7</span><br></pre></td></tr></table></figure>
-<p>这个超级搞笑，在我在google搜索如何卸载caffe的时候，出来的，成功让我又搞了一下午caffe</p>
-</li>
-<li><p>最后我还是卸了</p>
-</li>
-</ol>
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/tool/">tool</a>    
+      	
+</div>
 
-		  	  
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar lazyload" src="/images/placeholder.png" data-src="/images/header.jpg">
+      <p class="pf-des">pick苦瓜炒鸡蛋</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate.png">	
+		<img id="donate-qr-alipay" class="donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/">	
 	</div>
 
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/07/28/MacOS-Sierre-10-12-6-安装Caffe的坑/">Continue</a> 	</div>	
-    
-</article>     
-     	
-      	  	
+	<span class="donate-word">蟹蟹老板！！！</span>
 
-  		
-    	<article class="article">		
-	   
-	<div class="article-header">
-	    
-	     <a class="article-title" href="/2018/07/05/高雄科大学姐学妹学弟和我/">高雄科大学姐学妹学弟和我</a>  
-	       
-		 
-
-		<div class="article-meta">
-		
-		Jul 05, 2018
-
-		
-			<span class="iconfont icon-star"></span>		 
-			            
-			<a class="article-tag" href="/tags/Experience/">Experience</a>           
-			            
-			<a class="article-tag" href="/tags/Travel/">Travel</a>           
-			            
-			<a class="article-tag" href="/tags/Thought/">Thought</a>           
-			
-		
-		</div>
-
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
 	</div>
 
+</div>
 
+ 
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   			             
+            <a class="iconfont  icon-share-douban -mob-share-douban"></a>		
+     	   			             
+            <a class="iconfont  icon-share-facebook -mob-share-facebook"></a>		
+     	   			             
+            <a class="iconfont  icon-share-twitter -mob-share-twitter"></a>		
+     	   			             
+            <a class="iconfont  icon-share-google -mob-share-google"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+           
+        
+      
+        
+        <a href="/2018/07/28/MacOS-Sierre-10-12-6-安装Caffe的坑/" data-hover="MacOS Sierre 10.12.6 安装Caffe的坑"> Next</a>
+            
+  </nav>   
+  </div>
+</div> 
 	
 
-    
-	<div class="article-excerpt">	
-		
-			<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>2018京台大学生IT交流营志愿者“三陪”活动</p>
-		  	  
-	</div>
 
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/07/05/高雄科大学姐学妹学弟和我/">Continue</a> 	</div>	
-    
-</article>     
-     	
-      	  	
+    <div id="comment">   
+    </div>
 
-  		
-    	<article class="article">		
-	   
-	<div class="article-header">
-	    
-	     <a class="article-title" href="/2018/07/03/2018-7-3/">2018-7-3</a>  
-	       
-		 
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 
-		<div class="article-meta">
-		
-		Jul 03, 2018
+    <script src="//unpkg.com/valine@v1.1.8-beta/dist/Valine.min.js"></script>
 
-		
-			<span class="iconfont icon-star"></span>		 
-			            
-			<a class="article-tag" href="/tags/rubbish/">rubbish</a>           
-			
-		
-		</div>
-
-	</div>
-
-
+    <script>
+        new Valine({
+        el: '#comment',
+        notify:false, 
+        verify:false, 
+        app_id: 'C7883FlW1EypOUhd040za0Ae-gzGzoHsz',
+        app_key: 'oewOf8nirYwO03k3mOCKxijJ',  
+        path:window.location.pathname, 
+        avatar:'mm' ,
+        guest_info:['nick','mail']
+        });
+    </script>
 	
-
-    
-	<div class="article-excerpt">	
-		 
-			<h3 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h3><p>I have been studying how to use this blog all the morning</p>
-
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/07/03/2018-7-3/">Continue</a> 	</div>	
-    
-</article>     
-     	
-  
-
-
+</article>
 
           </section> 
       </div>            
