@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Ubuntu 14.04 安装Caffe |   穴力 </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.jpg">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+   
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <a class="header-logo" href="/">穴力</a>  
+
+    <div class="header-menu">          
+              
+            
+
+              <a class="header-menu-link" id="header-menu-home" href="/">Home</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-archives" href="/archives">Archives</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-tags" href="/tags">Tags</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-about" href="/about">About</a>     
+
+            
+            
+            
+
+              <a class="iconfont icon-menu-search header-menu-link" id="header-menu-search"></a>
+
+            
+                
+    </div>  
+    
+  </nav>
+</header>   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Ubuntu 14.04 安装caffe
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Aug 02, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1879
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<p>由于系统上已经装好了CUDA了，于是从装Anaconda开始，需要CUDA的可以看参考教程：<a href="https://blog.csdn.net/zongchenxian341/article/details/77744005" target="_blank" rel="noopener">https://blog.csdn.net/zongchenxian341/article/details/77744005</a></p>
+<ol>
+<li><p>Anaconda</p>
+<p>之所以安装anaconda是因为anaconda有包含了很多库，可以不用自己再装依赖库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>在anaconda官网下载source包,运行sh安装</span><br><span class="line">sh Anaconda-2.3.0-Linux-x86_64.sh</span><br><span class="line"><span class="meta">#</span>配置环境变量</span><br><span class="line">vim ~/.bashrc</span><br><span class="line"><span class="meta">#</span>在最后加</span><br><span class="line">export LD_LIBRARY_PATH=your_anaconda_path/lib:$LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>OpenCV 3.3</p>
+<p>最好安装较新版本的opencv，才不会出现一些要手动改文件的恶心错误</p>
+<p>Opencv3.2以前似乎不支持cuda 8.0</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>解决办法：进入opencv-3.1.0/modules/cudalegacy/src/graphcuts.cpp，做如下修改：</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>if !defined (HAVE_CUDA) || defined (CUDA_DISABLER)||(CUDART_VERSION&gt;=8000)</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>再更之前会有一个ippxx的文件报错，要替换文件</p>
+<p>链接:<a href="https://pan.baidu.com/s/1C9mxoGvngjV1hRg5lijYTA" target="_blank" rel="noopener">https://pan.baidu.com/s/1C9mxoGvngjV1hRg5lijYTA</a>  密码:ewam</p>
+<p>我后来改装的3.3一下就装好了，下面是3.3的教程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>1. 安装依赖项</span><br><span class="line">sudo apt-get install build-essential</span><br><span class="line">    # 必须的，gcc编译环境</span><br><span class="line">sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line">    # 必须的,包括cmake等工具</span><br><span class="line">sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</span><br><span class="line">    # 可选的，看个人需要，总共5M左右</span><br><span class="line">    </span><br><span class="line"><span class="meta">#</span>2. 解压安装包，安装包下载地址http://opencv.org/ </span><br><span class="line">unzip opencv-3.3</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>3. 编译</span><br><span class="line">cd opencv-3.3</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_TIFF=ON ..</span><br><span class="line">sudo make -j8</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>4.安装</span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>5.配置library</span><br><span class="line">sudo vim /etc/ld.so.conf.d</span><br><span class="line"><span class="meta">	#</span>写入</span><br><span class="line">/usr/local/lib</span><br><span class="line"><span class="meta">	#</span>运行命令</span><br><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>BLAS</p>
+<p>下面两个选一个装就好了，MKL的那个有点麻烦，就没写了，需要的google或度娘</p>
+<ul>
+<li><p>OpenBLAS</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libopenblas-dev</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>Atlas</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libatlas-base-dev</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>Caffe</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>1.安装依赖</span><br><span class="line">sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler</span><br><span class="line">sudo apt-get install --no-install-recommends libboost-all-dev</span><br><span class="line">sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev</span><br><span class="line"><span class="meta">#</span>2.获取 caffe</span><br><span class="line">git clone https://github.com/BVLC/caffe.git</span><br><span class="line"><span class="meta">#</span>3.配置</span><br><span class="line">cd caffe</span><br><span class="line">cp Makefile.config.example Makefile.config  </span><br><span class="line">具体配置参考https://blog.csdn.net/zongchenxian341/article/details/77744005</span><br><span class="line"><span class="meta">#</span>4.编译</span><br><span class="line">make all -j8</span><br><span class="line">make test -j8</span><br><span class="line">make runtest</span><br><span class="line"><span class="meta">#</span>5.最后是绿色的pass就成功了</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ol>
+  	
+					
+	  </div>     
+	  
+
+	
+<div class="post-meta">
+      	
+
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/tool/">tool</a>    
+      	
+</div>
+
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar lazyload" src="/images/placeholder.png" data-src="/images/header.jpg">
+      <p class="pf-des">pick苦瓜炒鸡蛋</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate.png">	
+		<img id="donate-qr-alipay" class="donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/">	
+	</div>
+
+	<span class="donate-word">蟹蟹老板！！！</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   			             
+            <a class="iconfont  icon-share-douban -mob-share-douban"></a>		
+     	   			             
+            <a class="iconfont  icon-share-facebook -mob-share-facebook"></a>		
+     	   			             
+            <a class="iconfont  icon-share-twitter -mob-share-twitter"></a>		
+     	   			             
+            <a class="iconfont  icon-share-google -mob-share-google"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+           
+        
+      
+        
+        <a href="/2018/07/30/Mac-OS下搭梯子-ss/" data-hover="Mac OS下搭梯子-ss"> Next</a>
+            
+  </nav>   
+  </div>
+</div> 
+	
+
+
+    <div id="comment">   
+    </div>
+
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+
+    <script src="//unpkg.com/valine@v1.1.8-beta/dist/Valine.min.js"></script>
+
+    <script>
+        new Valine({
+        el: '#comment',
+        notify:false, 
+        verify:false, 
+        app_id: 'C7883FlW1EypOUhd040za0Ae-gzGzoHsz',
+        app_key: 'oewOf8nirYwO03k3mOCKxijJ',  
+        path:window.location.pathname, 
+        avatar:'mm' ,
+        guest_info:['nick','mail']
+        });
+    </script>
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+
+        
+        <div class="search-container sildeUpMin">
+
+
+            <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">  
+            <span class="search-cancel iconfont icon-cancel"></span>
+          
+            </div>
+              
+            <div id="search-result" class="search-result"></div>
+
+        </div>
+ 
+
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.jpg">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		pick苦瓜炒鸡蛋
+		<br>
+
+		Built By Theme
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
