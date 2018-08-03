@@ -93,6 +93,66 @@
 	   
 	<div class="article-header">
 	    
+	     <a class="article-title" href="/2018/08/03/Ubuntu-显示远程服务器图形界面/">Ubuntu 显示远程服务器图形界面</a>  
+	       
+		 
+
+		<div class="article-meta">
+		
+		Aug 03, 2018
+
+		
+			<span class="iconfont icon-star"></span>		 
+			            
+			<a class="article-tag" href="/tags/tool/">tool</a>           
+			
+		
+		</div>
+
+	</div>
+
+
+	
+
+    
+	<div class="article-excerpt">	
+		 
+			<ol>
+<li><p>服务器 vs 客户端</p>
+<p>服务器——远程服务器</p>
+<p>客户端——本机</p>
+</li>
+<li><p>服务器安装运行SSH服务（不过一般服务器已经有了，不然你怎么通过ssh脸上呢==） + 配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br><span class="line">sudo vim /etc/ssh/sshd_config</span><br><span class="line">把X11Forwarding前面的'#'去掉，并把no 改成 yes（是yes的就不要改了）</span><br><span class="line"><span class="meta">#</span>重启ssh服务</span><br><span class="line">cd /etc/init.d</span><br><span class="line">./ssh restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端装上ssh客户端（一般也是有的）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-client</span><br><span class="line"><span class="meta">#</span>修改配置</span><br><span class="line">sudo vim /etc/ssh/ssh_config</span><br><span class="line">ForwardAgent\ForwardX11\ForwardX11Trusted 这三项全yes，并且去掉'#'</span><br><span class="line"><span class="meta">#</span>客户端添加服务器权限</span><br><span class="line">xhost + server_ip</span><br><span class="line">ssh -X root@server_ip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入服务器后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>先试一下能不能用，如果执行下面语句，可以显示时钟就ok了</span><br><span class="line">xclock</span><br><span class="line"><span class="meta">#</span>如果不行则执行下面</span><br><span class="line">export DISPLAY=client_ip:0.0</span><br><span class="line"><span class="meta">#</span>如果还是不行，看5</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果做完了4，还不能成功显示，则做下面的动作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/X11/xinit/xserverrc</span><br><span class="line"><span class="meta">#</span>把里面的那句话注掉，加上下面那句话</span><br><span class="line">exec /usr/bin/X/ -dpi 100</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启，重复4的操作</p>
+</li>
+</ol>
+
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/03/Ubuntu-显示远程服务器图形界面/">Continue</a> 	</div>	
+    
+</article>     
+     	
+      	  	
+
+  		
+    	<article class="article">		
+	   
+	<div class="article-header">
+	    
 	     <a class="article-title" href="/2018/08/02/Ubuntu-14-04-安装caffe/">Ubuntu 14.04 安装caffe</a>  
 	       
 		 
