@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Mac OS下搭梯子-Ss |   穴力 </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.jpg">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+   
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <a class="header-logo" href="/">穴力</a>  
+
+    <div class="header-menu">          
+              
+            
+
+              <a class="header-menu-link" id="header-menu-home" href="/">首頁</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-archives" href="/archives">歸檔</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-tags" href="/tags">標籤</a>     
+
+            
+            
+            
+
+              <a class="header-menu-link" id="header-menu-about" href="/about">關於</a>     
+
+            
+            
+            
+
+              <a class="iconfont icon-menu-search header-menu-link" id="header-menu-search"></a>
+
+            
+                
+    </div>  
+    
+  </nav>
+</header>   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Mac OS下搭梯子-ss
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Jul 30, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1348
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="post-content slideDownMin">
+
+		
+
+			
+					<a id="more"></a>
+<ol>
+<li><p>买服务器</p>
+<ul>
+<li>注册：<a href="https://billing.virmach.com/clientarea.php" target="_blank" rel="noopener">https://billing.virmach.com/clientarea.php</a></li>
+<li>Home-deployService-OpenVZ linux VPS</li>
+<li>到这边会有各种价钱的服务，请随意选</li>
+<li>接下来是选期限-地点-centos-add to cart</li>
+<li>checkout-alipay</li>
+</ul>
+</li>
+<li><p>收到带有ip\username\password的邮件</p>
+</li>
+<li><p>打开终端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@ip</span><br></pre></td></tr></table></figure>
+<p>然后输入密码，进入服务器</p>
+</li>
+<li><p>检查python版本，升级到2.7</p>
+<ul>
+<li>系统升级及安装开发工具包及相关需要的组件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum groupinstall "Development tools" -y</span><br><span class="line">yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel -y</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>安装python 2.7</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz</span><br><span class="line">tar xf Python-2.7.6.tar.xz</span><br><span class="line">./configure --prefix=/usr/local</span><br><span class="line">sudo make &amp;&amp; sudo make altinstall</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查是否安装python2.7</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/python2.7 --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移除老版本python，创建python2.7软链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/bin/python /usr/bin/python2.6.6</span><br><span class="line">ln -s /usr/local/bin/python2.7 /usr/bin/python</span><br><span class="line">python -V</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>安装python-pip</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://bootstrap.pypa.io/get-pip.py </span><br><span class="line">python get-pip.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装shadowsocks</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install shadowsocks</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置ss </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/shadowsocks.json</span><br><span class="line">&#123;</span><br><span class="line">"server": "0.0.0.0",</span><br><span class="line">"server_port": 8888,</span><br><span class="line">"local_port": 1080,</span><br><span class="line">"password": yourpassword,</span><br><span class="line">"timeout": 600,</span><br><span class="line">"method": "aes-256-cfb"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ssserver -c /etc/shadowsocks.json &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载PC客户端</p>
+<p>链接:<a href="https://pan.baidu.com/s/1q84MJWHwzjCCVevzTIVMAg" target="_blank" rel="noopener">https://pan.baidu.com/s/1q84MJWHwzjCCVevzTIVMAg</a>  密码:o3c8</p>
+<ul>
+<li>打开后，点菜单栏的纸飞机，使用全局模式</li>
+<li>新服务器-服务器设置-+-输入刚刚配置的信息</li>
+</ul>
+</li>
+<li><p>完成</p>
+<p>参考：<a href="https://blog.csdn.net/amoscn/article/details/79364599" target="_blank" rel="noopener">https://blog.csdn.net/amoscn/article/details/79364599</a></p>
+<p>​        <a href="https://blog.csdn.net/shenso/article/details/80474140" target="_blank" rel="noopener">https://blog.csdn.net/shenso/article/details/80474140</a></p>
+</li>
+</ol>
+  	
+					
+	  </div>     
+	  
+
+	
+<div class="post-meta">
+      	
+
+      
+        <i class="iconfont icon-tag"></i>     
+          <a class="tag-link" href="/tags/tutorial/">tutorial</a>    
+      	
+</div>
+
+
+
+
+
+<div class="post-footer">
+  <div class="pf-left">
+      <img class="pf-avatar lazyload" src="/images/placeholder.png" data-src="/images/header.jpg">
+      <p class="pf-des">pick苦瓜炒鸡蛋</p>
+  </div>
+
+  <div class="pf-right">           
+      <div class="pf-links">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate.png">	
+		<img id="donate-qr-alipay" class="donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/">	
+	</div>
+
+	<span class="donate-word">蟹蟹老板！！！</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		   			             
+            <a class="iconfont  icon-share-qq -mob-share-qq"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weixin -mob-share-weixin"></a>		
+     	   			             
+            <a class="iconfont  icon-share-weibo -mob-share-weibo"></a>		
+     	   			             
+            <a class="iconfont  icon-share-douban -mob-share-douban"></a>		
+     	   			             
+            <a class="iconfont  icon-share-facebook -mob-share-facebook"></a>		
+     	   			             
+            <a class="iconfont  icon-share-twitter -mob-share-twitter"></a>		
+     	   			             
+            <a class="iconfont  icon-share-google -mob-share-google"></a>		
+     	   
+	</div>	
+
+      </div>  
+    <nav class="pf-paginator">
+      
+         
+          <a href="/2018/08/02/Ubuntu-14-04-安装caffe/" data-hover="Ubuntu 14.04 安装caffe">上一篇</a>      
+            
+        
+      
+        
+        <a href="/2018/07/28/MacOS-Sierre-10-12-6-安装Caffe的坑/" data-hover="MacOS Sierre 10.12.6 安装Caffe的坑"> 下一篇</a>
+            
+  </nav>   
+  </div>
+</div> 
+	
+
+
+    <div id="comment">   
+    </div>
+
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+
+    <script src="//unpkg.com/valine@v1.1.8-beta/dist/Valine.min.js"></script>
+
+    <script>
+        new Valine({
+        el: '#comment',
+        notify:false, 
+        verify:false, 
+        app_id: 'C7883FlW1EypOUhd040za0Ae-gzGzoHsz',
+        app_key: 'oewOf8nirYwO03k3mOCKxijJ',  
+        path:window.location.pathname, 
+        avatar:'mm' ,
+        guest_info:['nick','mail']
+        });
+    </script>
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+
+        
+        <div class="search-container sildeUpMin">
+
+
+            <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">  
+            <span class="search-cancel iconfont icon-cancel"></span>
+          
+            </div>
+              
+            <div id="search-result" class="search-result"></div>
+
+        </div>
+ 
+
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.jpg">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首頁
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">歸檔
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">標籤
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">關於
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+				
+		2018-
+		
+		2021		
+	
+		pick苦瓜炒鸡蛋
+		<br>
+
+		Built By Theme
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
